@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -15,7 +16,26 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::simplePaginate(5);
+        return view('guest.article', ['articles'=>$articles, 'title'=>'Article']);
+    }
+
+    public function indexHome()
+    {
+        $articles = Article::simplePaginate(5);
+        return view('guest.home', ['articles'=>$articles, 'title'=>'Home']);
+    }
+
+    public function indexUser(Request $request, $user_id)
+    {
+        $articles = Article::where('user_id',$user_id)->simplePaginate(5);
+        return view('guest.user-article', ['articles'=>$articles, 'title'=>'Article']);
+    }
+
+    public function indexCategory(Request $request, $category_id)
+    {
+        $articles = Article::where('category_id',$category_id)->simplePaginate(5);
+        return view('guest.category-article', ['articles'=>$articles, 'title'=>'Category']);
     }
 
     /**

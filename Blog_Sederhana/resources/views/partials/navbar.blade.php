@@ -7,8 +7,8 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
             <a class="nav-link {{($title=='Home')?'active':''}}" href="/">Home</a>
-            <a class="nav-link {{($title=='About')?'active':''}}" href="/about">About</a>
-            <a class="nav-link {{($title=='Blog')?'active':''}}" href="/blog">Blog</a>
+            <a class="nav-link {{($title=='Category')?'active':''}}" href="/category">Category</a>
+            <a class="nav-link {{($title=='Article')?'active':''}}" href="/article">Article</a>
         </div>
         </div>
     </div>

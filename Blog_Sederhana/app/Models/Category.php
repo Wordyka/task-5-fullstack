@@ -12,11 +12,14 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $guarded = ['id'];
-    
-    protected $fillable = ['name','user_id'];
 
     public function article()
     {
-        return $this->belongsTo(Article::class);
+        return $this->hasMany(Article::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

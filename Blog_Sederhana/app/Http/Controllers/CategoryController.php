@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::simplePaginate(15);
+        return view('guest.category', ['categories'=>$categories, 'title'=>'Category']);
     }
 
     /**

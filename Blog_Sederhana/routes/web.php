@@ -13,20 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index',[
-        'title'=>'Home'
-    ]);
-});
+Route::get('/', 'ArticleController@indexHome');
 
-Route::get('/about', function () {
-    return view('about',[
-        'title'=>'About'
-    ]);
-});
+Route::get('/category', 'CategoryController@index');
 
-Route::get('/blog', function () {
-    return view('blog',[
-        'title'=>'Blog'
-    ]);
-});
+Route::get('/article', 'ArticleController@index');
+
+Route::get('/article/{user_id}', 'ArticleController@indexUser');
+
+Route::get('/article-category/{category_id}', 'ArticleController@indexCategory');
+

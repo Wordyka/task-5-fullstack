@@ -18,7 +18,7 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name'=>$this->faker->text(),
+            'name'=>$this->faker->words(2, true),
             'user_id'=>$this->faker->numberBetween(1,User::count())
         ];
     }

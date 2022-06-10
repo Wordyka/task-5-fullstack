@@ -19,9 +19,9 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->title(),
-            'content'=> $this->faker->text(),
-            'image'=> $this->faker->imageUrl(200,200,'transport'),
+            'title' => $this->faker->sentence(mt_rand(2,10)),
+            'content'=> $this->faker->paragraph(mt_rand(25,30)),
+            'image'=> $this->faker->imageUrl(640, 480,'transport'),
             'user_id'=>$this->faker->numberBetween(1,User::count()),
             'category_id'=> $this->faker->numberBetween(1,Category::count())
         ];
