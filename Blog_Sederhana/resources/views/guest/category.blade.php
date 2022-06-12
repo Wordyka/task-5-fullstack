@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<h1 class="mb-5">List of Categories</h1>
+<h1 class="mb-5">All Categories</h1>
 
 <?php $i = 0; ?>
 @foreach($categories as $category)

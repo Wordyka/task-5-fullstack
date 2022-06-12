@@ -19,11 +19,14 @@ class ArticleFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence(mt_rand(2,10)),
-            'content'=> $this->faker->paragraph(mt_rand(25,30)),
-            'image'=> $this->faker->imageUrl(640, 480,'transport'),
-            'user_id'=>$this->faker->numberBetween(1,User::count()),
-            'category_id'=> $this->faker->numberBetween(1,Category::count())
+            'title' => $this->faker->sentence(mt_rand(2, 10)),
+            // 'content' => collect($this->faker->paragraphs(mt_rand(5, 8)))
+            //             ->map(fn ($p) => "<p>$p</p>")
+            //             ->implode(''),
+            'content' => $this->faker->paragraph(mt_rand(5, 8)),
+            'image' => $this->faker->imageUrl(640, 480, 'transport'),
+            'user_id' => $this->faker->numberBetween(1, User::count()),
+            'category_id' => $this->faker->numberBetween(1, Category::count())
         ];
     }
 }

@@ -16,25 +16,25 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::simplePaginate(5);
+        $articles = Article::with('user','category')->latest()->simplePaginate(5);
         return view('guest.article', ['articles'=>$articles, 'title'=>'Article']);
     }
 
     public function indexHome()
     {
-        $articles = Article::simplePaginate(5);
+        $articles = Article::with('user','category')->latest()->simplePaginate(5);
         return view('guest.home', ['articles'=>$articles, 'title'=>'Home']);
     }
 
     public function indexUser(Request $request, $user_id)
     {
-        $articles = Article::where('user_id',$user_id)->simplePaginate(5);
+        $articles = Article::with('user','category')->latest()->where('user_id',$user_id)->simplePaginate(5);
         return view('guest.user-article', ['articles'=>$articles, 'title'=>'Article']);
     }
 
     public function indexCategory(Request $request, $category_id)
     {
-        $articles = Article::where('category_id',$category_id)->simplePaginate(5);
+        $articles = Article::with('user','category')->latest()->where('category_id',$category_id)->simplePaginate(5);
         return view('guest.category-article', ['articles'=>$articles, 'title'=>'Category']);
     }
 
