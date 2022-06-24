@@ -14,14 +14,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('v1')->group(function () {
 
+    Route::post('register', 'API\UserController@register');
+    Route::post('login', 'API\UserController@login');
 
-Route::post('login', 'UserController@login');
-Route::post('register', 'UserController@register');
+    // Route::get('/', 'API\ArticleAPIController@index');
 
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('details', 'UserController@details');
+    // // CEK TOKEN USER, HARUS LOGIN DULU
+    // Route::middleware('client')->group(function () {
+    //     // Route::get('/', 'API\ArticleAPIController@index');
+    // });
+
+    Route::middleware('auth:api')->group(function () {
+        Route::get('profile', 'API\UserController@profile');
+        Route::get('logout', 'API\UserController@logout');
+
+        Route::apiResources([
+            'categories' => 'API\CategoryAPIController',
+            'articles' => 'API\ArticleAPIController',
+        ]);
+    });
+
 });

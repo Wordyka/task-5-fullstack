@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class ArticleController extends Controller
 {
@@ -18,6 +19,15 @@ class ArticleController extends Controller
     {
         $articles = Article::with('user','category')->latest()->simplePaginate(5);
         return view('guest.article', ['articles'=>$articles, 'title'=>'Article']);
+
+        $client = new Client();
+        $response = $client->request('GET','http://localhost:9010/student/');
+        $statusCode = $response->getStatusCode();
+        $body = $response->getBody()->getContents();
+
+        $data = json_decode($body, true);
+
+        return view('beranda',['data' => $data]);
     }
 
     public function indexHome()
