@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Http\Requests\StoreArticleRequest;
-use App\Http\Requests\UpdateArticleRequest;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
@@ -15,7 +14,14 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
+    {
+        $articles = Article::with('user','category')->latest()->get();
+        return view('admin.article.index', compact('articles'));
+    }
+
+    public function indexGuest()
     {
         $articles = Article::with('user','category')->latest()->simplePaginate(5);
         return view('guest.article', ['articles'=>$articles, 'title'=>'Article']);
@@ -55,7 +61,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        return view('admin.article.create', ['data' => new Article, 'categories' => $categories]);
     }
 
     /**
@@ -64,9 +71,24 @@ class ArticleController extends Controller
      * @param  \App\Http\Requests\StoreArticleRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreArticleRequest $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|unique:articles|max:255',
+            'contents' => 'required',
+            'image' => 'required',
+            'category_id' => 'required'
+        ]);
+
+        $article = new Article;
+        $article->title = $request->title;
+        $article->content = $request->contents;
+        $article->image = $request->image;
+        $article->user_id = $request->user_id;
+        $article->category_id = $request->category_id;
+        $article->save();
+
+        return redirect()->route('articles.index')->with('success', 'Article has been created');
     }
 
     /**
@@ -88,7 +110,8 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        $categories = Category::all();
+        return view('admin.article.edit', compact('article', 'categories'));
     }
 
     /**
@@ -98,9 +121,22 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(Request $request, Article $article)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'contents' => 'required',
+            'image' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $article->title = $request->title;
+        $article->content = $request->contents;
+        $article->image = $request->image;
+        $article->category_id = $request->category_id;
+        $article->save();
+
+        return redirect()->route('articles.index')->with('success', 'Article has been updated');
     }
 
     /**
@@ -111,6 +147,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return redirect()->route('articles.index')->with('success', 'Article has been deleted');
     }
 }

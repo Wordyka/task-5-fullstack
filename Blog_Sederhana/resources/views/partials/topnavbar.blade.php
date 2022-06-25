@@ -5,8 +5,8 @@
 
         <form class="form-inline" method="get">
             <div class="d-flex">
-                <input class="form-control" type="search" name="cari" value="{{Request::get('cari')}}" placeholder="Cari di sini..." aria-label="Search" size=50 autocomplete="off"> &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="btn btn-outline-light ml-5" type="submit">Cari</button>
+                <input class="form-control" type="search" name="cari" value="{{Request::get('cari')}}" placeholder="Type keyword here..." aria-label="Search" size=50 autocomplete="off"> &nbsp;&nbsp;&nbsp;&nbsp;
+                <button class="btn btn-outline-light ml-5" type="submit">Search</button>
             </div>
         </form>
     </div>
@@ -26,11 +26,10 @@
 
         <div class="dropdown mr-5">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="iconify" data-icon="bxs:user"></span> Admin &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="iconify" data-icon="bxs:user"></span> {{Auth::user()->name}} &nbsp;&nbsp;&nbsp;&nbsp;</span>
             </button> 
             <ul class="dropdown-menu  mt-2" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="/profil"><span class="iconify" data-icon="bx:user-pin" data-height="22"></span>&nbsp;Profil</a></li>
-                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="iconify" data-icon="charm:sign-out"></span>&nbsp;Keluar</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span class="iconify" data-icon="charm:sign-out"></span>&nbsp;Log Out</a></li>
                 </form>
             </ul>
         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

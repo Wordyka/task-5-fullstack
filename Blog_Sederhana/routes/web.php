@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'ArticleController@indexHome');
 
-Route::get('/category', 'CategoryController@index');
+Route::get('/category', 'CategoryController@indexGuest');
 
-Route::get('/article', 'ArticleController@index');
+Route::get('/article', 'ArticleController@indexGuest');
 
 Route::get('/article/{user_id}', 'ArticleController@indexUser');
 
@@ -45,8 +45,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
       return view('admin.beranda');
     });
 
-    Route::resource('articles', ArticleController::class);
+    Route::prefix('author')->group(function () {
 
-    Route::resource('categories', CategoryController::class);
+        Route::resource('articles', ArticleController::class);
+
+        Route::resource('categories', CategoryController::class);
+
+    });
 
 });

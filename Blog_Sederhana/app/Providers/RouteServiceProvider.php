@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\\Http\\Controllers';
-    public const HOME = '/beranda';
+    public const HOME = '/author/articles';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
