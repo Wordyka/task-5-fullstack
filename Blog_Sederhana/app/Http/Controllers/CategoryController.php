@@ -13,17 +13,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::with('user','article')->latest()->get();
+        $categories = Category::where('name', 'LIKE', '%' . $request->find . '%')->with('user', 'article')->latest()->get();
         $articles = Article::all();
-        return view('admin.category.index', compact('categories','articles'));
+        return view('admin.category.index', compact('categories', 'articles'));
     }
 
     public function indexGuest()
     {
-        $categories = Category::with('user','article')->simplePaginate(15);
-        return view('guest.category', ['categories'=>$categories, 'title'=>'Category']);
+        $categories = Category::with('user', 'article')->simplePaginate(15);
+        return view('guest.category', ['categories' => $categories, 'title' => 'Category']);
     }
 
     /**

@@ -5,7 +5,7 @@
 
         <form class="form-inline" method="get">
             <div class="d-flex">
-                <input class="form-control" type="search" name="cari" value="{{Request::get('cari')}}" placeholder="Type keyword here..." aria-label="Search" size=50 autocomplete="off"> &nbsp;&nbsp;&nbsp;&nbsp;
+                <input class="form-control" type="search" name="find" value="{{Request::get('find')}}" placeholder="Type keyword here..." aria-label="Search" size=50 autocomplete="off"> &nbsp;&nbsp;&nbsp;&nbsp;
                 <button class="btn btn-outline-light ml-5" type="submit">Search</button>
             </div>
         </form>

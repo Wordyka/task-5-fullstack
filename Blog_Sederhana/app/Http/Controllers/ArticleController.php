@@ -15,43 +15,43 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::with('user','category')->latest()->get();
+        $articles = Article::where('title', 'LIKE', '%' . $request->find . '%')->orWhere('content', 'LIKE', '%' . $request->find . '%')->with('user', 'category')->latest()->get();
         return view('admin.article.index', compact('articles'));
     }
 
     public function indexGuest()
     {
-        $articles = Article::with('user','category')->latest()->simplePaginate(5);
-        return view('guest.article', ['articles'=>$articles, 'title'=>'Article']);
+        $articles = Article::with('user', 'category')->latest()->simplePaginate(5);
+        return view('guest.article', ['articles' => $articles, 'title' => 'Article']);
 
         $client = new Client();
-        $response = $client->request('GET','http://localhost:9010/student/');
+        $response = $client->request('GET', 'http://localhost:9010/student/');
         $statusCode = $response->getStatusCode();
         $body = $response->getBody()->getContents();
 
         $data = json_decode($body, true);
 
-        return view('beranda',['data' => $data]);
+        return view('beranda', ['data' => $data]);
     }
 
     public function indexHome()
     {
-        $articles = Article::with('user','category')->latest()->simplePaginate(5);
-        return view('guest.home', ['articles'=>$articles, 'title'=>'Home']);
+        $articles = Article::with('user', 'category')->latest()->simplePaginate(5);
+        return view('guest.home', ['articles' => $articles, 'title' => 'Home']);
     }
 
     public function indexUser(Request $request, $user_id)
     {
-        $articles = Article::with('user','category')->latest()->where('user_id',$user_id)->simplePaginate(5);
-        return view('guest.user-article', ['articles'=>$articles, 'title'=>'Article']);
+        $articles = Article::with('user', 'category')->latest()->where('user_id', $user_id)->simplePaginate(5);
+        return view('guest.user-article', ['articles' => $articles, 'title' => 'Article']);
     }
 
     public function indexCategory(Request $request, $category_id)
     {
-        $articles = Article::with('user','category')->latest()->where('category_id',$category_id)->simplePaginate(5);
-        return view('guest.category-article', ['articles'=>$articles, 'title'=>'Category']);
+        $articles = Article::with('user', 'category')->latest()->where('category_id', $category_id)->simplePaginate(5);
+        return view('guest.category-article', ['articles' => $articles, 'title' => 'Category']);
     }
 
     /**
